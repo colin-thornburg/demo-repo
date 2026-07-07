@@ -1,0 +1,20 @@
+Refactor legacy/load_dim_customer.sql into idiomatic dbt on Snowflake.
+Source data is loaded as dbt seeds: raw_customers and raw_addresses
+(address_type = 'PRIMARY' is the primary address).
+
+Use a snapshot for the SCD2 history, turn the CHURNED cursor loop into
+set-based logic (ACTIVE + no activity in 18 months = churned), and drop
+the Oracle batch-logging/exception scaffolding. Add sensible tests.
+
+----
+
+Refactor legacy/build_fact_sales_daily.sql into dbt on Snowflake, using
+the customer snapshot we just built for customer_sk.
+
+Sources are dbt seeds: raw_orders, raw_order_lines, raw_returns,
+raw_return_lines, raw_stores, and ref_fx_daily_rates.
+
+Make the fact incremental (the 3-day DELETE window is the look-back),
+fold returns in as negative offsets, and convert currency via a join to
+ref_fx_daily_rates instead of the correlated subquery. Keep the grain
+and output schema.
