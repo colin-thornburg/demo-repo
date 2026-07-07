@@ -1,0 +1,13 @@
+customer_id,first_name,last_name,email,phone,account_status,credit_limit,last_modified_ts
+1001,Maria,Gonzalez,Maria.Gonzalez@EXAMPLE.com,(312) 555-0142,ACTIVE,5000,2026-06-14 09:22:01
+1002,James,Whitfield,james.whitfield@example.com,312.555.0177,ACTIVE,2500,2024-01-03 14:05:33
+1003,Aisha,Okafor,AISHA.OKAFOR@example.com,+1-773-555-0199,ACTIVE,10000,2026-05-30 08:11:00
+1004,Liam,Petrov, liam.petrov@example.com ,(773) 555 0165,SUSPENDED,0,2025-11-19 16:48:22
+1005,Chen,Wei,chen.wei@example.com,7735550188,ACTIVE,7500,2023-08-01 11:30:45
+1006,Fatima,Al-Rashid,fatima.alrashid@example.com,312-555-0121,PROSPECT,,2026-06-28 19:02:10
+1007,David,Nguyen,David.Nguyen@example.com,(312)555-0133,ACTIVE,3000,2024-02-15 07:55:19
+1008,Sofia,Rossi,sofia.rossi@example.com,3125550109,ACTIVE,12000,2026-06-01 13:20:00
+1009,Kwame,Mensah,kwame.mensah@example.com,773.555.0150,CHURNED,1500,2025-03-22 10:14:07
+1010,Elena,Novak,elena.novak@example.com,(773) 555-0176,ACTIVE,4000,2026-04-18 22:41:33
+1011,Hiroshi,Tanaka,hiroshi.tanaka@example.com,+1 312 555 0144,ACTIVE,8500,2024-01-20 06:30:12
+1012,Grace,Kimani,grace.kimani@example.com,3125550190,ACTIVE,6000,2026-06-20 15:09:48

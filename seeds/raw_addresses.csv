@@ -1,0 +1,15 @@
+address_id,customer_id,address_type,address_line1,city,state_province,postal_code,country_code
+5001,1001,PRIMARY,123 W Randolph St,Chicago,IL,60601,US
+5002,1001,SHIPPING,456 N Michigan Ave,Chicago,IL,60611,US
+5003,1002,PRIMARY,789 Oak Park Ave,Oak Park,IL,60302,US
+5004,1003,PRIMARY,321 S Wabash Ave,Chicago,IL,60604,US
+5005,1004,PRIMARY,654 Sofiyska St,Sofia,,1000,BG
+5006,1005,PRIMARY,88 Nanjing Rd,Shanghai,,200001,CN
+5007,1006,PRIMARY,12 Sheikh Zayed Rd,Dubai,,00000,AE
+5008,1007,PRIMARY,999 Lincoln Park W,Chicago,IL,60614,US
+5009,1007,BILLING,1000 Clark St,Chicago,IL,60610,US
+5010,1008,PRIMARY,45 Via Roma,Milan,,20121,IT
+5011,1009,PRIMARY,7 Independence Ave,Accra,,00233,GH
+5012,1010,PRIMARY,22 Wenceslas Sq,Prague,,11000,CZ
+5013,1011,PRIMARY,3 Chiyoda,Tokyo,,100-0001,JP
+5014,1012,PRIMARY,50 Kenyatta Ave,Nairobi,,00100,KE

@@ -1,0 +1,7 @@
+store_id,store_name,city,state_province,country_code,currency_code
+10,Chicago Loop,Chicago,IL,US,USD
+20,Oak Park,Oak Park,IL,US,USD
+30,London Soho,London,,GB,GBP
+40,Milan Duomo,Milan,,IT,EUR
+50,Tokyo Ginza,Tokyo,,JP,JPY
+60,Online US,,,US,USD
