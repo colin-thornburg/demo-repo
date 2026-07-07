@@ -1,4 +1,4 @@
-Refactor legacy/load_dim_customer.sql into idiomatic dbt on Snowflake.
+Refactor legacy/load_dim_customer.sql into dbt on Snowflake.
 Source data is loaded as dbt seeds: raw_customers and raw_addresses
 (address_type = 'PRIMARY' is the primary address).
 
