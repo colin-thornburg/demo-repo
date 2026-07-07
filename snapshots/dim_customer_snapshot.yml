@@ -1,0 +1,21 @@
+version: 2
+
+snapshots:
+  - name: dim_customer_snapshot
+    description: "SCD2 history of customers and their primary address, including set-based churn transitions after 18 months of inactivity."
+    relation: ref('stg_customer')
+    config:
+      schema: snapshots
+      strategy: timestamp
+      unique_key: customer_id
+      updated_at: effective_updated_at
+      dbt_valid_to_current: "to_timestamp_ntz('9999-12-31')"
+    columns:
+      - name: customer_id
+        description: "Customer business key."
+        data_tests:
+          - not_null
+      - name: effective_updated_at
+        description: "Timestamp used by the snapshot strategy."
+        data_tests:
+          - not_null

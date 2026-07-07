@@ -1,0 +1,94 @@
+version: 2
+
+seeds:
+  - name: raw_customers
+    description: "Seeded raw customer records from the legacy OLTP customers table."
+    columns:
+      - name: customer_id
+        description: "Business key for the customer."
+        data_tests:
+          - not_null
+          - unique
+      - name: account_status
+        description: "Source lifecycle status before set-based churn logic is applied."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['ACTIVE', 'SUSPENDED', 'PROSPECT', 'CHURNED']
+      - name: last_modified_ts
+        description: "Latest source activity timestamp used to detect churn eligibility."
+        data_tests:
+          - not_null
+
+  - name: raw_addresses
+    description: "Seeded raw customer addresses from the legacy OLTP addresses table."
+    columns:
+      - name: address_id
+        description: "Seed row identifier for the address record."
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Customer business key."
+        data_tests:
+          - not_null
+      - name: address_type
+        description: "Address role for the customer."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['PRIMARY', 'SHIPPING', 'BILLING']
+
+models:
+  - name: stg_customer
+    description: "Cleans customer and primary address seed data and derives churn transitions in a set-based way."
+    columns:
+      - name: customer_id
+        description: "Customer business key."
+        data_tests:
+          - not_null
+          - unique
+      - name: email
+        description: "Normalized email address."
+      - name: phone
+        description: "Digits-only phone number."
+      - name: account_status
+        description: "Current business status after applying the 18-month inactivity churn rule."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['ACTIVE', 'SUSPENDED', 'PROSPECT', 'CHURNED']
+      - name: effective_updated_at
+        description: "Change timestamp used by the snapshot, including synthetic churn-effective dates."
+        data_tests:
+          - not_null
+
+  - name: dim_customer
+    description: "Customer dimension with SCD2 history sourced from the customer snapshot."
+    columns:
+      - name: customer_sk
+        description: "Deterministic surrogate key for each SCD2 version."
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: "Customer business key."
+        data_tests:
+          - not_null
+      - name: account_status
+        description: "Status for this historical version of the customer row."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['ACTIVE', 'SUSPENDED', 'PROSPECT', 'CHURNED']
+      - name: is_current
+        description: "Flag marking the currently active SCD2 version."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Y', 'N']
