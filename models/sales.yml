@@ -1,0 +1,102 @@
+version: 2
+
+models:
+  - name: stg_sales_events
+    description: "Daily sales grain staging model that folds completed orders and returns together, then converts local currency to USD using the daily FX reference table."
+    columns:
+      - name: sales_date
+        data_tests:
+          - not_null
+      - name: customer_id
+        data_tests:
+          - not_null
+      - name: product_id
+        data_tests:
+          - not_null
+      - name: store_id
+        data_tests:
+          - not_null
+
+  - name: hub_customer_sales
+    description: "Customer hub for the sales Vault slice keyed by customer business key."
+    columns:
+      - name: hk_customer_h
+        data_tests:
+          - not_null
+          - unique
+
+  - name: hub_product
+    description: "Product hub keyed by product business key from sales activity."
+    columns:
+      - name: hk_product_h
+        data_tests:
+          - not_null
+          - unique
+
+  - name: hub_store
+    description: "Store hub keyed by store business key from sales activity."
+    columns:
+      - name: hk_store_h
+        data_tests:
+          - not_null
+          - unique
+
+  - name: link_sales_daily
+    description: "Link at the reporting fact grain of sales date, customer, product, and store."
+    columns:
+      - name: hk_sales_daily_l
+        data_tests:
+          - not_null
+          - unique
+      - name: hk_customer_h
+        data_tests:
+          - not_null
+      - name: hk_product_h
+        data_tests:
+          - not_null
+      - name: hk_store_h
+        data_tests:
+          - not_null
+
+  - name: sat_sales_daily_metrics
+    description: "Satellite storing daily sales measures and currency context for the sales grain link."
+    columns:
+      - name: hk_sales_daily_l
+        data_tests:
+          - not_null
+      - name: hd_sales_daily_s
+        data_tests:
+          - not_null
+      - name: src_ldts
+        data_tests:
+          - not_null
+
+  - name: fact_sales_daily
+    description: "Business-facing incremental fact that preserves the legacy daily sales grain and uses the current customer dimension version for customer_sk."
+    columns:
+      - name: sales_date
+        data_tests:
+          - not_null
+      - name: customer_sk
+        description: "Current customer surrogate key from dim_customer; null when no matching customer dimension row exists."
+      - name: product_id
+        data_tests:
+          - not_null
+      - name: store_id
+        data_tests:
+          - not_null
+      - name: order_qty
+        data_tests:
+          - not_null
+      - name: gross_amount
+        data_tests:
+          - not_null
+      - name: line_count
+        data_tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: ">= 0"
+      - name: batch_id
+        description: "Legacy compatibility column retained in the output schema; dbt loads do not assign ETL batch ids."
+
