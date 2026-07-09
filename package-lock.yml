@@ -1,0 +1,8 @@
+packages:
+- git: https://github.com/Datavault-UK/automate-dv.git
+  name: automate_dv
+  revision: 39115fe9abd8e309dc4e615c285e85d91eddf39b
+- package: dbt-labs/dbt_utils
+  name: dbt_utils
+  version: 1.4.1
+sha1_hash: a838445bc9bfbe0ea384a3f673343e1838810115
