@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: ""
+    columns:
+      - name: customer_id
+        description: ""
+        tests:
+          - unique
+          - not_null
+      - name: signup_date
+        description: ""
+      - name: customer_tier
+        description: ""
+      - name: source_system
+        description: ""
+      - name: is_duplicate_customer
+        description: ""
+
+  - name: stg_orders
+    description: ""
+    columns:
+      - name: order_id
+        description: ""
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: ""
+      - name: order_date
+        description: ""
+      - name: order_status
+        description: ""
+      - name: order_total
+        description: ""
+      - name: discount_code
+        description: ""
+
+  - name: stg_payments
+    description: ""
+    columns:
+      - name: payment_id
+        description: ""
+      - name: order_id
+        description: ""
+      - name: provider
+        description: ""
+      - name: payment_method
+        description: ""
+      - name: amount
+        description: ""
+      - name: payment_status
+        description: ""

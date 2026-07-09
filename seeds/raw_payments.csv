@@ -1,0 +1,14 @@
+payment_id,order_id,provider,payment_method,amount_cents,status
+9001,5001,stripe,card,12000,captured
+9002,5002,stripe,card,8950,captured
+9003,5003,metronome,invoice,4500,refunded
+9004,5004,stripe,card,21075,captured
+9005,5005,stripe,card,6000,pending
+9006,5006,metronome,invoice,17525,captured
+9007,5007,stripe,card,9999,captured
+9008,5009,metronome,invoice,34000,captured
+9009,5010,stripe,card,5550,refunded
+9010,5011,metronome,invoice,41020,captured
+9011,5012,stripe,card,7200,pending
+9012,5013,stripe,card,13333,captured
+9013,5014,stripe,card,8888,captured

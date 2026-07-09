@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: fct_customer_orders
+    description: ""
+    columns:
+      - name: customer_id
+        description: ""
+        tests:
+          - unique
+          - not_null
+      - name: customer_tier
+        description: ""
+      - name: source_system
+        description: ""
+      - name: order_count
+        description: ""
+      - name: completed_revenue
+        description: ""
+      - name: refunded_amount
+        description: ""

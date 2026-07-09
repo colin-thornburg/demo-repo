@@ -1,0 +1,13 @@
+customer_id,signup_date,customer_tier,source_system,is_duplicate_customer
+1001,2024-01-15,2,stripe,false
+1002,2024-01-18,1,stripe,false
+1003,2024-02-02,3,metronome,false
+1004,2024-02-11,2,stripe,false
+1004,2024-02-11,2,metronome,true
+1005,2024-03-01,1,metronome,false
+1006,2024-03-14,3,stripe,false
+1007,2024-03-22,2,metronome,false
+1007,2024-03-22,2,stripe,true
+1008,2024-04-05,1,stripe,false
+1009,2024-04-19,3,metronome,false
+1010,2024-05-02,2,stripe,false
