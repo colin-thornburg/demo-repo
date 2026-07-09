@@ -1,0 +1,13 @@
+provider_id,practice_name,signup_date,provider_specialty,billing_system,is_duplicate_account
+P1001,Radiance Dermatology,2024-01-15,derm,alle_direct,false
+P1002,Coastal Plastic Surgery,2024-01-22,plastics,gpo,false
+P1003,Lumient Med Spa,2024-02-05,med_spa,alle_direct,false
+P1004,Bay Aesthetics Group,2024-02-18,facial_plastics,alle_direct,false
+P1004,Bay Aesthetics Group,2024-02-18,facial_plastics,gpo,true
+P1005,Elevate Skin Institute,2024-03-02,derm,gpo,false
+P1006,Marin Cosmetic Center,2024-03-15,med_spa,alle_direct,false
+P1007,Summit Facial Plastics,2024-03-28,facial_plastics,gpo,false
+P1007,Summit Facial Plastics,2024-03-28,facial_plastics,alle_direct,true
+P1008,Verve Dermatology,2024-04-09,derm,alle_direct,false
+P1009,Pacific Aesthetics,2024-04-21,plastics,gpo,false
+P1010,Glow Med Spa,2024-05-03,med_spa,alle_direct,false

@@ -1,21 +1,21 @@
 version: 2
 
 models:
-  - name: fct_customer_orders
+  - name: fct_provider_orders
     description: ""
     columns:
-      - name: customer_id
+      - name: provider_id
         description: ""
         tests:
           - unique
           - not_null
-      - name: customer_tier
+      - name: practice_name
         description: ""
-      - name: source_system
+      - name: provider_specialty
+        description: ""
+      - name: billing_system
         description: ""
       - name: order_count
         description: ""
-      - name: completed_revenue
-        description: ""
-      - name: refunded_amount
+      - name: units_dispensed
         description: ""

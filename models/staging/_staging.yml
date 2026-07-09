@@ -1,21 +1,23 @@
 version: 2
 
 models:
-  - name: stg_customers
+  - name: stg_providers
     description: ""
     columns:
-      - name: customer_id
+      - name: provider_id
         description: ""
         tests:
           - unique
           - not_null
+      - name: practice_name
+        description: ""
       - name: signup_date
         description: ""
-      - name: customer_tier
+      - name: provider_specialty
         description: ""
-      - name: source_system
+      - name: billing_system
         description: ""
-      - name: is_duplicate_customer
+      - name: is_duplicate_account
         description: ""
 
   - name: stg_orders
@@ -26,29 +28,31 @@ models:
         tests:
           - unique
           - not_null
-      - name: customer_id
+      - name: provider_id
         description: ""
       - name: order_date
         description: ""
       - name: order_status
         description: ""
-      - name: order_total
+      - name: product_family
         description: ""
-      - name: discount_code
+      - name: units_ordered
+        description: ""
+      - name: promo_code
         description: ""
 
-  - name: stg_payments
+  - name: stg_shipments
     description: ""
     columns:
-      - name: payment_id
+      - name: shipment_id
         description: ""
       - name: order_id
         description: ""
-      - name: provider
+      - name: ship_date
         description: ""
-      - name: payment_method
+      - name: units_shipped
         description: ""
-      - name: amount
+      - name: units_sampled
         description: ""
-      - name: payment_status
+      - name: cold_chain_flag
         description: ""
