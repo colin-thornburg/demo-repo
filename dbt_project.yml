@@ -1,14 +1,14 @@
-name: 'wizard_doc_demo'
+name: 'allergan_ui_demo'
 version: '1.0.0'
 config-version: 2
 
-profile: 'wizard_doc_demo'
+profile: 'allergan_ui_demo'
 
 model-paths: ["models"]
 seed-paths: ["seeds"]
 
 models:
-  wizard_doc_demo:
+  allergan_ui_demo:
     staging:
       +materialized: view
     marts:
