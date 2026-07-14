@@ -1,0 +1,232 @@
+version: 2
+
+models:
+  - name: stg_reman_cores
+    description: "Business staging model for returned reman cores at one row per landed core status extract."
+    columns:
+      - name: core_serial_number
+        data_tests:
+          - not_null
+      - name: core_part_number
+        data_tests:
+          - not_null
+      - name: load_datetime
+        data_tests:
+          - not_null
+
+  - name: stg_reman_work_orders
+    description: "Business staging model for reman work orders at one row per work order extract."
+    columns:
+      - name: work_order_number
+        data_tests:
+          - not_null
+      - name: core_serial_number
+        data_tests:
+          - not_null
+      - name: opened_ts
+        data_tests:
+          - not_null
+
+  - name: stg_reman_inspections
+    description: "Business staging model for inspection events at one row per inspection."
+    columns:
+      - name: inspection_id
+        data_tests:
+          - not_null
+          - unique
+      - name: core_serial_number
+        data_tests:
+          - not_null
+      - name: work_order_number
+        data_tests:
+          - not_null
+
+  - name: stg_reman_part_transactions
+    description: "Business staging model for part issue and scrap transactions at one row per transaction."
+    columns:
+      - name: transaction_id
+        data_tests:
+          - not_null
+          - unique
+      - name: work_order_number
+        data_tests:
+          - not_null
+      - name: part_number
+        data_tests:
+          - not_null
+
+  - name: stg_reman_shipments
+    description: "Business staging model for reman shipment records at one row per shipment."
+    columns:
+      - name: shipment_id
+        data_tests:
+          - not_null
+          - unique
+      - name: core_serial_number
+        data_tests:
+          - not_null
+      - name: work_order_number
+        data_tests:
+          - not_null
+
+  - name: hub_core
+    description: "Hub keyed by reman core or component serial number."
+    columns:
+      - name: hk_core_h
+        data_tests:
+          - not_null
+          - unique
+
+  - name: hub_work_order
+    description: "Hub keyed by reman work order number."
+    columns:
+      - name: hk_work_order_h
+        data_tests:
+          - not_null
+          - unique
+
+  - name: hub_part
+    description: "Hub keyed by part number used or identified in reman processing."
+    columns:
+      - name: hk_part_h
+        data_tests:
+          - not_null
+          - unique
+
+  - name: link_core_work_order
+    description: "Link relating reman cores to work orders."
+    columns:
+      - name: hk_core_work_order_l
+        data_tests:
+          - not_null
+          - unique
+      - name: hk_core_h
+        data_tests:
+          - not_null
+      - name: hk_work_order_h
+        data_tests:
+          - not_null
+
+  - name: link_work_order_part
+    description: "Link relating work orders to consumed or scrapped parts."
+    columns:
+      - name: hk_work_order_part_l
+        data_tests:
+          - not_null
+          - unique
+      - name: hk_work_order_h
+        data_tests:
+          - not_null
+      - name: hk_part_h
+        data_tests:
+          - not_null
+
+  - name: link_core_shipment
+    description: "Link relating reman cores and work orders to shipment business events."
+    columns:
+      - name: hk_core_shipment_l
+        data_tests:
+          - not_null
+          - unique
+      - name: hk_core_h
+        data_tests:
+          - not_null
+      - name: hk_work_order_h
+        data_tests:
+          - not_null
+
+  - name: sat_core_status
+    description: "Satellite capturing received core context and current lifecycle status attributes."
+    columns:
+      - name: hk_core_h
+        data_tests:
+          - not_null
+      - name: hd_core_status_s
+        data_tests:
+          - not_null
+      - name: src_ldts
+        data_tests:
+          - not_null
+
+  - name: sat_work_order_details
+    description: "Satellite capturing work order operational attributes and status."
+    columns:
+      - name: hk_work_order_h
+        data_tests:
+          - not_null
+      - name: hd_work_order_details_s
+        data_tests:
+          - not_null
+      - name: src_ldts
+        data_tests:
+          - not_null
+
+  - name: sat_core_work_order_inspection
+    description: "Link satellite capturing inspection event details for the core-to-work-order relationship."
+    columns:
+      - name: hk_core_work_order_l
+        data_tests:
+          - not_null
+      - name: hd_core_work_order_inspection_s
+        data_tests:
+          - not_null
+      - name: src_ldts
+        data_tests:
+          - not_null
+
+  - name: sat_work_order_part_usage
+    description: "Link satellite capturing part transaction details at the work-order-to-part relationship grain."
+    columns:
+      - name: hk_work_order_part_l
+        data_tests:
+          - not_null
+      - name: hd_work_order_part_usage_s
+        data_tests:
+          - not_null
+      - name: src_ldts
+        data_tests:
+          - not_null
+
+  - name: sat_core_shipment_details
+    description: "Link satellite capturing shipment lifecycle details for reman cores leaving the facility."
+    columns:
+      - name: hk_core_shipment_l
+        data_tests:
+          - not_null
+      - name: hd_core_shipment_details_s
+        data_tests:
+          - not_null
+      - name: src_ldts
+        data_tests:
+          - not_null
+
+
+  - name: stg_reman_teardown_events
+    description: "Business staging model for teardown process events at one row per teardown step event."
+    columns:
+      - name: teardown_event_id
+        data_tests:
+          - not_null
+          - unique
+      - name: core_serial_number
+        data_tests:
+          - not_null
+      - name: work_order_number
+        data_tests:
+          - not_null
+      - name: event_ts
+        data_tests:
+          - not_null
+
+  - name: sat_core_work_order_teardown
+    description: "Link satellite capturing teardown event details for the core-to-work-order relationship."
+    columns:
+      - name: hk_core_work_order_l
+        data_tests:
+          - not_null
+      - name: hd_core_work_order_teardown_s
+        data_tests:
+          - not_null
+      - name: src_ldts
+        data_tests:
+          - not_null
