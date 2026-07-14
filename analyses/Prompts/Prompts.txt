@@ -1,20 +1,31 @@
-Refactor legacy/load_dim_customer.sql into dbt on Snowflake.
-Source data is loaded as dbt seeds: raw_customers and raw_addresses
-(address_type = 'PRIMARY' is the primary address).
+Load `.agents/skills/remanufacturing-data-vault-playbook/SKILL.md` and use it as the operating playbook for this task.
 
-Use a snapshot for the SCD2 history, turn the CHURNED cursor loop into
-set-based logic (ACTIVE + no activity in 18 months = churned), and drop
-the Oracle batch-logging/exception scaffolding. Add sensible tests.
+Model these new seed sources into a coherent remanufacturing Data Vault slice:
+- `raw_reman_cores`
+- `raw_reman_work_orders`
+- `raw_reman_inspections`
+- `raw_reman_part_transactions`
+- `raw_reman_shipments`
 
-----
+Assume these are early landed raw source extracts for Caterpillar remanufacturing operations.
 
-Refactor legacy/build_fact_sales_daily.sql into dbt on Snowflake, using
-the customer snapshot we just built for customer_sk.
+Please:
+- inspect the seed files first
+- determine the correct business keys and grain
+- create `stg_<subject>` models
+- create `stg_vault_<subject>` hashed staging
+- create hubs, links, and satellites in the existing project structure
+- add YAML docs and `data_tests:`
+- validate with dbt builds
 
-Sources are dbt seeds: raw_orders, raw_order_lines, raw_returns,
-raw_return_lines, raw_stores, and ref_fx_daily_rates.
+Design expectations:
+- core/component should likely be a hub
+- work order should likely be a hub
+- part should likely be a hub where appropriate
+- inspections, part usage, and shipment/state details should likely live in satellites
+- use links for core-to-work-order and other natural business relationships
+- only create a business-facing mart if there is a clear consumer-facing output worth exposing
 
-Make the fact incremental (the 3-day DELETE window is the look-back),
-fold returns in as negative offsets, and convert currency via a join to
-ref_fx_daily_rates instead of the correlated subquery. Keep the grain
-and output schema.
+Package expectations:
+- use `automate_dv` if dbt runtime supports it
+- if Studio/editor shows `automate_dv` errors, verify with `dbt compile --select <model> --no-partial-parse` before deciding there is a real problem
