@@ -2,20 +2,20 @@ version: 2
 
 models:
   - name: fct_provider_orders
-    description: ""
+    description: Provider-level fact table summarizing order activity and net dispensed units across all associated orders. Combines canonical provider attributes with downstream revenue-eligible fulfillment measures.
     columns:
       - name: provider_id
-        description: ""
+        description: Canonical identifier for the provider practice represented by the fact row. Serves as the primary key for provider-level order aggregation.
         data_tests:
           - unique
           - not_null
       - name: practice_name
-        description: ""
+        description: Business name of the provider practice associated with the aggregated metrics. Included for reporting and account-level slicing.
       - name: provider_specialty
-        description: ""
+        description: Clinical specialty of the provider practice used for segmentation in downstream reporting. Values align to the staged provider specialty categories.
       - name: billing_system
-        description: ""
+        description: Billing channel for the canonical provider account contributing the aggregated metrics. Indicates whether the practice is billed through `alle_direct` or `gpo`.
       - name: order_count
-        description: ""
+        description: Total number of orders associated with the provider practice in this fact table. Counts all joined order records regardless of fulfillment outcome.
       - name: units_dispensed
-        description: ""
+        description: Net billable units recognized for the provider practice, calculated as shipped units minus sampled units for orders with status `S`. Excludes returned, backordered, and cancelled orders from recognized product volume.

@@ -2,57 +2,57 @@ version: 2
 
 models:
   - name: stg_providers
-    description: ""
+    description: Canonical provider practice accounts used for downstream order and shipment analysis. Filters out duplicate GPO accounts so each provider_id represents the Alle Direct record for that practice.
     columns:
       - name: provider_id
-        description: ""
+        description: Stable account identifier for a provider practice across billing systems and downstream marts. Used as the join key between provider, order, and shipment records.
         data_tests:
           - unique
           - not_null
       - name: practice_name
-        description: ""
+        description: Business name of the provider practice or med spa placing orders. Used for reporting and account-level analysis.
       - name: signup_date
-        description: ""
+        description: Date the provider practice account was created or enrolled in the system. Useful for cohorting practices by account vintage.
       - name: provider_specialty
-        description: ""
+        description: Clinical specialty of the provider practice. Values include `derm` for dermatology, `plastics` for plastic surgery, `med_spa`, and `facial_plastics`.
       - name: billing_system
-        description: ""
+        description: Billing channel tied to the provider account. Values include `alle_direct` for direct Allergan Aesthetics billing and `gpo` for group purchasing organization billing.
       - name: is_duplicate_account
-        description: ""
+        description: Flag identifying the non-canonical duplicate account when a practice has both `alle_direct` and `gpo` billing records under the same provider_id. Downstream staging keeps the canonical `alle_direct` record and filters out rows where this flag is true.
 
   - name: stg_orders
-    description: ""
+    description: Order-level records for products purchased by provider practices. Preserves the original order status and promotional attributes used downstream for revenue and fulfillment analysis.
     columns:
       - name: order_id
-        description: ""
+        description: Unique identifier for an order placed by a provider practice. Serves as the grain of the staging model and the join key to shipment records.
         data_tests:
           - unique
           - not_null
       - name: provider_id
-        description: ""
+        description: Provider practice account associated with the order. Joins each order back to the canonical provider record.
       - name: order_date
-        description: ""
+        description: Date the order was placed by the provider practice. Commonly used for order trend and cohort analysis.
       - name: order_status
-        description: ""
+        description: Fulfillment status code for the order. Values include `S` for shipped, `R` for returned, `B` for backordered, and `C` for cancelled; only `S` orders count toward recognized product revenue downstream.
       - name: product_family
-        description: ""
+        description: Brand line ordered on the transaction. Values include BOTOX, JUVEDERM, KYBELLA, SKINVIVE, and COOLSCULPTING.
       - name: units_ordered
-        description: ""
+        description: Quantity of product units requested on the order before shipment outcomes or free samples are applied. Useful for comparing demand with shipped volume.
       - name: promo_code
-        description: ""
+        description: Promotional or campaign code attached to the order at purchase time, when present. Used to analyze uptake and performance of provider-facing offers.
 
   - name: stg_shipments
-    description: ""
+    description: Shipment-level fulfillment records tied to provider orders. Captures shipped volume, sampled units, and cold-chain handling attributes used in downstream operational and revenue logic.
     columns:
       - name: shipment_id
-        description: ""
+        description: Identifier for an individual shipment event tied to an order. Represents the grain of the shipment staging model.
       - name: order_id
-        description: ""
+        description: Order associated with the shipment record. Used to join fulfillment activity back to the originating order.
       - name: ship_date
-        description: ""
+        description: Date the shipment left the fulfillment process. Used for shipping cadence and fulfillment timing analysis.
       - name: units_shipped
-        description: ""
+        description: Quantity of product units physically shipped on the shipment record. Forms the basis for downstream dispensed-unit calculations.
       - name: units_sampled
-        description: ""
+        description: Quantity of shipped units provided as free samples instead of billable product. Subtracted from shipped units when calculating net dispensed volume.
       - name: cold_chain_flag
-        description: ""
+        description: Flag indicating whether the shipment required temperature-controlled handling. Drives downstream fulfillment and compliance logic for cold-chain products such as BOTOX and JUVEDERM.
