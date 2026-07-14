@@ -1,0 +1,6 @@
+inspection_id,core_serial_number,work_order_number,inspection_ts,inspector_id,inspection_result,wear_score,crack_flag,contamination_flag,notes,load_datetime
+INSP-70001,CAT-C0001,WO-90001,2026-07-01 12:00:00,INSP-01,PASS,12,N,N,Minor cosmetic wear,2026-07-01 12:05:00
+INSP-70002,CAT-C0002,WO-90002,2026-07-01 13:00:00,INSP-02,PASS,18,N,Y,Flush required,2026-07-01 13:05:00
+INSP-70003,CAT-C0003,WO-90003,2026-07-02 11:00:00,INSP-03,REPAIR,42,Y,N,Crack near housing,2026-07-02 11:05:00
+INSP-70004,CAT-C0004,WO-90004,2026-07-02 15:15:00,INSP-01,PASS,9,N,N,Ready for rebuild,2026-07-02 15:20:00
+INSP-70005,CAT-C0005,WO-90005,2026-07-03 09:00:00,INSP-04,SCRAP,87,Y,Y,Excessive damage and contamination,2026-07-03 09:05:00
